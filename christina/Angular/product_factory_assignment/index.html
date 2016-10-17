@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+	<head>
+		<title>Products with a Factory</title>
+		<script src = "bower_components/angular/angular.js"></script>
+		<script type="text/javascript">
+			var myApp = angular.module('myApp', []);
+			myApp.factory('productsFactory', [function($http){
+				var products = [];
+				var myFactory ={};
+				myFactory.getProducts = function(callback){
+					callback(products);
+				}
+				myFactory.addProducts = function(product, callback){
+					products.push(product);
+					callback(products);
+				}
+				myFactory.deleteProducts = function(id, callback){
+					products.splice(id, 1);
+					callback(products);
+				}
+				return myFactory;
+			}]);
+			myApp.controller('productsController', ['$scope', 'productsFactory', function($scope, productsFactory){
+				$scope.products =[];
+				$scope.product = {};
+
+				function getProduct(products){
+						$scope.products = products;
+						$scope.product = {};
+				}
+				$scope.addProduct = function(){
+					productsFactory.addProducts($scope.product, getProduct);
+				}
+				$scope.deleteProduct = function(id){
+					productsFactory.deleteProducts(id, getProduct);					
+				}
+			}])
+		</script>
+	</head>
+	<body ng-controller = 'productsController'>
+		<form>
+			<label>Product Name: </label><input type="text" name="name" ng-model="product.name">
+			<label>Product Price: </label><input type="text" name="price" ng-model = "product.price">
+			<input type="submit" value="Add Product" ng-click="addProduct()">
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody ng-repeat='productItem in products'>
+				<tr>
+					<td>{{productItem.name}}</td>
+					<td>{{productItem.price | currency:"$"}}</td>
+					<td><button ng-click ='deleteProduct($index)'>Delete Product</button></td>
+				</tr>
+			</tbody>
+		</table>	
+	</body>
+</html>

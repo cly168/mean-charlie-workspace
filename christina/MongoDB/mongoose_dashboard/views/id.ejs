@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+	</head>
+	<body>
+		<% for (var i = 0; i< list.length; i++){ %>
+			<h2>Name: <%= list[i].name %></h2>
+			<img src="<%= list[i].img %>">
+			<h3>Weight: <%= list[i].weight %></h3>
+			<div><%= list[i]._id %></div>
+			<hr>
+		<% } %>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+	</head>
+	<body>
+		<form action ="/quotes" method="post">
+			<label>Your name: </label><input type="text" name="name">
+			<label>Your quote:</label><textarea name="quote"></textarea>
+			<input type="submit" name= "Add my quote!">
+		</form>
+		<button onclick="location.href='/quotes'">Skip to quotes!</button>
+	</body>
+</html>

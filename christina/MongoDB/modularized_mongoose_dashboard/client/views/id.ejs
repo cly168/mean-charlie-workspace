@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+	</head>
+	<body>
+		<% for(var i =0; i < single.length; i++ ){ %>
+			<h2>Name: <%= single[i].name %></h2>
+			<img src="<%= single[i].img %>">
+			<h3>Weight: <%= single[i].weight %></h3>
+			<div><%= single[i]._id %></div>
+			<hr>
+		<% } %>
+	</body>
+</html>

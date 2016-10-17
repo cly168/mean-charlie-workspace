@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Players</title>
+	</head>
+	<body ng-controller ='teamListController'>
+		<h1>{{teamname}}</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat='playerItem in players |filter: teamname'>
+					<td>{{playerItem.name}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

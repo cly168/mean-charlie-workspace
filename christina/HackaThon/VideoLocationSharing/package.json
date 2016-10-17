@@ -1,0 +1,14 @@
+{
+  "name": "location_sharing_service",
+  "description": "A Socket IO server for a real time location sharing service",
+  "version": "0.0.1",
+  "main": "./server",
+  "dependencies": {
+    "express": "^4.14.0",
+    "node": "0.0.0",
+    "socket.io": "^1.5.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

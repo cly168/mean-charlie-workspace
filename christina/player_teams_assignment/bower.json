@@ -1,0 +1,21 @@
+{
+  "name": "player_teams_assignment",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Christina Ly <cly168@vt.edu>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/wanasit/location-sharing-demo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.8",
+    "angular": "^1.5.8"
+  }
+}

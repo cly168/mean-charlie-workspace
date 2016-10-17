@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<script src = 'angular/angular.js'></script>
+		<script src = 'angular-route/angular-route.js'></script>
+		<script src = 'angular-messages/angular-messages.js'></script>
+		<script type="text/javascript">
+			var app = angular.module('app', ['ngRoute', 'ngMessages']);
+			app.config(function($routeProvider){
+				$routeProvider
+				.when('/', {
+					templateUrl: 'partials/players.html', 
+					controller: 'playersController'
+				})
+				.when('/teams', {
+					templateUrl: 'partials/teams.html',
+					controller: 'teamsController'
+				})
+				.when('/associations', {
+					templateUrl: 'partials/associations.html',
+					controller: 'associationsController'
+				})
+				.when('/:teamname', {
+					templateUrl: 'partials/team.html', 
+					controller: 'teamListController'
+				})
+				.otherwise({
+					redirectTo: 'partials/players.html'
+				})
+			})
+			app.factory('playerFactory', [function($http){
+				var players = [];
+				var playerFactory = {};
+				playerFactory.addPlayers = function(player){
+					players.push(player);
+				}
+				playerFactory.removePlayers = function(index){
+					players.splice(index, 1);
+				}
+				playerFactory.getPlayers = function(callback){
+					callback(players);
+				}
+				playerFactory.addAssociations = function(playerIndex, teamName){
+					players[playerIndex].team = teamName;
+				}
+				playerFactory.removeAssociations = function(index){
+					players[index].team = '';
+				}
+				return playerFactory;
+			}]);
+			app.factory('teamFactory', [function($http){
+				var teams = [];
+				var teamFactory = {};
+				teamFactory.addTeams = function(team){
+					teams.push(team);
+				}
+				teamFactory.removeTeams = function(index){
+					teams.splice(index, 1);
+				}
+				teamFactory.getTeams = function(callback){
+					callback(teams);
+				}
+				return teamFactory;
+			}])
+			app.controller('playersController', ['$scope', 'playerFactory', '$location', function($scope, playerFactory, $location){
+				$scope.players = [];
+				$scope.player = {};
+				function getPlayer(players){
+					$scope.players = players;
+					$scope.player = {};
+				}
+				$scope.addPlayer = function(){
+					$location.url('/teams')
+					playerFactory.addPlayers($scope.player);
+				}
+				$scope.removePlayer = function(index){
+					playerFactory.removePlayers(index);
+				}
+				playerFactory.getPlayers(getPlayer);
+			}]);
+			app.controller('teamsController', ['$scope', 'teamFactory', '$location', function($scope, teamFactory, $location){
+				$scope.teams = [];
+				$scope.team = {};
+				function getTeam(teams){
+					$scope.teams = teams;
+					$scope.team = {};
+				}
+				$scope.addTeam = function(){
+					$location.url('/associations')
+					teamFactory.addTeams($scope.team);
+				}
+				$scope.removeTeam = function(index){
+					teamFactory.removeTeams(index);		
+				}
+				teamFactory.getTeams(getTeam);
+			}]);
+			app.controller('teamListController', ['$scope', 'playerFactory', '$routeParams', function($scope, playerFactory, $routeParams){
+				$scope.players = [];
+				$scope.teamname = $routeParams.teamname;
+				function getPlayer(players){
+					$scope.players = players;
+				}
+				playerFactory.getPlayers(getPlayer);
+			}])
+			app.controller('associationsController', ['$scope', 'playerFactory', 'teamFactory', '$location', function($scope, playerFactory, teamFactory, $location){
+				$scope.players = [];
+				$scope.teams = [];
+				function getPlayer(players){
+					$scope.players = players;
+				}
+				function getTeam(teams){
+					$scope.teams = teams;
+				}
+				$scope.addAssociation = function(){
+					playerFactory.addAssociations($scope.playerAssociation, $scope.teamAssociation);
+				}
+				$scope.removeAssociation = function(index){
+					playerFactory.removeAssociations(index);
+				}
+				playerFactory.getPlayers(getPlayer);
+				teamFactory.getTeams(getTeam);
+			}]);
+		</script>
+	</head>
+	<body ng-app = 'app'>
+		<a href = '#/'>Player List</a>
+		<a href = '#/teams'>Team List</a>
+		<a href = '#/associations'>Associations List</a>
+		<div ng-view = ''>
+			
+		</div>
+	</body>
+</html>

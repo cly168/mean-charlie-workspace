@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title></title>
+		<script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+   		<script type ="text/javascript">
+   			$(document).ready(function(){
+   				var socket = io.connect();
+   				$('#submit').click(function(){
+   					socket.emit('form_submit', {name: $('#name').val(), location: $('#dojo').val(), language: $('#lang').val(), comment: $('#comment').val()});
+   				});
+   				socket.on('random_number', function(data){
+   					$('#info').append('Your lucky number emitted by the server is: ' +data.number);
+   				})
+   				socket.on('form_result', function(data){
+   					$('#info').append('You emited the following information to the server: {name: '+ data.name +', location: ' + data.location + ', language: ' +data.language+ ', comment:' +data.comment +'}<br>');
+   				})
+
+   			})
+   		</script>
+	</head>
+	<body>
+		<div id ='info'></div>
+		<label>Your name:</label><input type="text" id="name"><br>
+		<label>Dojo Location:</label><select id ="dojo">
+			<option value = "mountain view">mountain view</option>
+			<option value = "dc dojo">dc dojo</option>
+			<option value = "seattle">seattle</option>
+		</select><br>
+		<label>Favorite Language:</label><select id ="lang">
+			<option value = "C++">C++</option>
+			<option value = "Javascript">Javascript</option>
+			<option value = "Python">Python</option>
+		</select><br>
+		<label>Comment (optional):</label><textarea id ="comment"></textarea><br>
+		<button id="submit">Submit</button>
+	</body>
+</html>

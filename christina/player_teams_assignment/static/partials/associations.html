@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body ng-controller ='associationsController'>
+		<h1>Associations</h1>
+		<form>
+			<select name="name" ng-model = 'playerAssociation'>
+				<option ng-repeat = 'playerItem in players' value="{{$index}}">{{playerItem.name}}</option>
+			</select>
+			<select name="team" ng-model = 'teamAssociation'>
+				<option ng-repeat = 'teamItem in teams' value="{{teamItem.name}}">{{teamItem.name}}</option>
+			</select>
+			<input type="button" name="playerToteam" value="Assign Player to Team" ng-click = 'addAssociation()'>
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Team</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat = 'playerListItem in players'>
+					<td>{{playerListItem.name}}</td>
+					<td>{{playerListItem.team}}</td>
+					<td><input type="submit" value = 'Clear Assignment' ng-click='removeAssociation($index)'></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

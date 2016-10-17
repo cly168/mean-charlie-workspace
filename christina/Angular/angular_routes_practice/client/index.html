@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app = 'app'>
+	<head>
+		<title>Index</title>
+		<script src = 'angular/angular.js'></script>
+		<script src = 'angular-route/angular-route.js'></script>
+		<script type="text/javascript">
+			var app = angular.module('app', ['ngRoute'])
+			.config(function($routeProvider){
+				$routeProvider
+					.when('/', {
+						templateUrl: 'partials/partial1.html'
+					})
+					.when('/partial2',{
+						templateUrl: 'partials/partial2.html'
+					})
+					.otherwise({
+						redirectTo: '/'
+					});
+			});
+		</script>
+	</head>
+	<body>
+		<div ng-view>
+			
+		</div>
+		<h1>Hello World</h1>
+		<a href = '#/'>partial1</a>
+		<a href = '#/partial2'>partial2</a>
+	</body>
+</html>

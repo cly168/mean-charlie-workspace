@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type = "text/javascript">
+			$(document).ready(function(){
+				var socket = io.connect()
+				$('#epic').click(function(){
+					socket.emit('button_pushed');
+				})
+				socket.on('count', function(data){
+					$('#number').html(data.count);
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div id ="counter">
+			<h1>The button has been pushed <span id = "number"></span> times(s)</h1>
+		</div>
+		<p>Push the button to update the count!</p>
+		<button id = "epic">Push the epic button</button>
+	</body>
+</html>

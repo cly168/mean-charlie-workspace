@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+	</head>
+	<body>
+		<% for (var i =0; i<list.length; i++){ %>
+			<img src= "<%= list[i].img %>">
+			<div><%= list[i]._id %></div>
+		<% } %>
+	</body>
+</html>

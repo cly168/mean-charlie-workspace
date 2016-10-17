@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Users</title>
+		<script src = 'angular/angular.js'></script>
+		<script src = 'angular-route/angular-route.js'></script>
+		<script type="text/javascript">
+			var app = angular.module('app', ['ngRoute'])
+			app.config(function($routeProvider){
+				$routeProvider
+				.when('/', {
+					templateUrl: 'partials/customizeUsers.html',
+					controller: 'customizeUsersController'
+				})
+				.when('/userList', {
+					templateUrl: 'partials/userList.html',
+					controller: 'userListController'
+				})
+				.otherwise({
+					redirectTo: '/'
+				});
+			});
+			app.factory('usersFactory', [function($http){
+				var users = [];
+				var usersFactory = {};
+				usersFactory.addUsers = function(user, callback){
+					users.push(user);
+					callback(users);
+				}
+				usersFactory.deleteUsers = function(index, callback){
+					users.splice(index, 1);
+					callback(users);
+				}
+				usersFactory.getUsers = function(callback){
+					callback(users);
+				}
+				return usersFactory;
+			}])
+			app.controller('customizeUsersController', ['$scope', 'usersFactory', '$location', function($scope, usersFactory, $location){
+				console.log($location)
+				$scope.users = [];
+				$scope.user = {};
+				function getUser(users){
+					$scope.users = users;
+					$scope.user = {};
+				}
+				$scope.addUser = function(){
+					$location.url('/userList');
+					usersFactory.addUsers($scope.user, getUser);
+				}
+				$scope.deleteUser = function(index){
+					usersFactory.deleteUsers(index, getUser);
+				}
+				usersFactory.getUsers(getUser)
+			}]);
+			app.controller('userListController', ['$scope', 'usersFactory', function($scope, usersFactory){
+				$scope.users = [];
+				function getUser(users){
+					$scope.users = users;
+					$scope.user = {};
+				}
+				usersFactory.getUsers(getUser)
+			}])
+		</script>
+	</head>
+	<body ng-app = 'app'>
+		<a href='#/userList'>User List</a>
+		<a href='#/'>Add User</a>
+		<div ng-view = ''>
+			
+		</div>
+	</body>
+</html>

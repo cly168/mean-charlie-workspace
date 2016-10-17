@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+	</head>
+	<body>
+		<form action = "/<%= single._id %>" method="post">
+			<label>Name: </label><input type ="text" name ="name" value = "<%= single.name %>">
+			<label>Weight: </label><input type ="number" name = "weight" value = "<%= single.weight %>"><span>Pounds</span>
+			<label>Image: </label><input type = "text" name = "img" value ="<%= single.img %>">
+			<input type ="submit" name ="edit">
+		</form>
+		<form action="/<%= single._id %>/destroy" method="post">
+			<button type ="submit">Remove</button>
+		</form>
+	</body>
+</html>

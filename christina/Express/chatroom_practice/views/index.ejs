@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+   		<script type ="text/javascript">
+   			$(document).ready(function(){
+   				var socket = io.connect();
+   				$('#ok').click(function(){
+   					socket.emit('got_a_new_user', {name:$('#name').val(), id: socket.id});
+   					$('#login').hide();
+   				})
+   				socket.on('all_user', function(data){
+   					data.list.map(function(user){
+   						$('#everybody_logged_in').append('<div id="'+user.id+'">'+user.name+'</div>');
+   					})  					
+   				})
+   				socket.on('new_user', function(data){
+   					$('#everybody_logged_in').append('<div id="'+data.id+'">'+data.name+'</div>');
+   				})
+   				socket.on('remove', function(data){
+   					$('#'+data.id).remove();
+   				})
+   			})
+   		</script>
+	</head>
+	<body>
+		<div id="login">
+			<p>the page at https://localhost says:</p>
+			<label>Your name:</label><input type = "text" id = "name"><br>
+			<button id = "ok">OK</button>
+			<button id = "cancel">Cancel</button>
+		</div>
+
+		<div id ="everybody_logged_in"></div>
+	</body>
+</html>
