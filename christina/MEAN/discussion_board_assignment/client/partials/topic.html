@@ -1,0 +1,19 @@
+<div>
+	<h1>{{topic._user.first_name}} posted a topic:</h1>
+	<h2>{{topic.question}}</h2>
+	<h4>Description: {{topic.desc}}</h4>
+</div>
+<form ng-submit='addPost()'>	
+	<label>Post your answer here...</label><textarea ng-model='post.post'></textarea>
+	<input type="submit" name="post" value='Post'>
+</form>
+<div ng-repeat='postItem in topic.post track by $index'>
+	{{postItem._user.first_name}} {{postItem.post}}
+	<div ng-repeat = 'commentItem in postItem.comment'>
+		<p>{{commentItem.comment}}  {{commentItem._user.first_name}}</p>
+	</div>
+	<form ng-submit = 'addComment($index)'>
+		<textarea ng-model='comment[$index].comment'></textarea>
+		<input type="submit" name="comment" value="Comment">
+	</form>
+</div>

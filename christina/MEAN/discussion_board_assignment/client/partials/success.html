@@ -1,0 +1,27 @@
+<h1>Welcome {{user.first_name}}</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Category</th>
+			<th>Topic</th>
+			<th>User Name</th>
+			<th>Posts</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat ='topicItem in topics'>
+			<td>{{topicItem._category.name}}</td>
+			<td><a href='#/topic/{{topicItem._id}}'>{{topicItem.question}}</a></td>
+			<td>{{topicItem._user.first_name}} {{topicItem._user.last_name}}</td>
+			<td>{{topicItem.post.length}}</td>
+		</tr>
+	</tbody>
+</table>
+<div>{{error}}</div>
+<form ng-submit='addTopic()'>
+	<label>Topic </label><input type="text" name="topic" ng-model='topic.question'>
+	<label>Description </label><input type="text" name="description" ng-model='topic.desc'>
+	<label>Category </label><select ng-model='topic._category'><option ng-repeat = 'categoryItem in categories' value="{{categoryItem._id}}" >{{categoryItem.name}}</option>
+	</select>
+	<input type="submit" name="Topic">
+</form>

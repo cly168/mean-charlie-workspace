@@ -1,0 +1,21 @@
+<h1>List of Friends</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Show</th>
+			<th>Update</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat = 'friendItem in friends | filter: filterFriends'>
+			<td>{{friendItem.first}} {{friendItem.last}}</td>
+			<td><a href='#/show/{{friendItem._id}}' name="show">show</a></td>
+			<td><a href='#/edit/{{friendItem._id}}' name="edit">edit</a></td>
+			<td><a href='#/delete/{{friendItem._id}}' name="delete">delete</a></td>
+		</tr>
+	</tbody>
+</table>
+<input type="text" name="filter" ng-model = 'filterFriends'>
+<a href='#/new'><button>New Friend</button></a>

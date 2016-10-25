@@ -1,0 +1,8 @@
+<h1>Edit: {{friends.first}} {{friends.last}}</h1>
+	<form ng-submit='editFriend(friends._id)'>
+		<label>First Name </label><input type="text" name="first" ng-model='friends.first'>
+		<label>Last Name </label><input type="text" name="last" ng-model='friends.last'>
+		<label>Birthday </label><input type="date" name="bday" value='{{friends.bday | date: "yyyy-MM-dd"}}' ng-model='friends.bday'>
+		<label>User Added</label><input type="date" name="createdAt" value="{{friends.createdAt | date: 'yyyy-MM-dd'}}">
+		<input type="submit" value="Edit">
+	</form>

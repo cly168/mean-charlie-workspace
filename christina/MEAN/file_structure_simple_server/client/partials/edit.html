@@ -1,0 +1,8 @@
+<body ng-controller='editController'>
+	<h1>Edit</h1>
+	<form ng-submit='update($index)'>
+		<label>First Name: </label><input type="text" name="first" ng-model='friend.first' placeholder="{{friend.first}}">
+		<label>Last Name: </label><input type="text" name="last" ng-model='friend.last' placeholder="{{friend.last}}">
+		<input type="submit" value="Edit">
+	</form>
+</body>

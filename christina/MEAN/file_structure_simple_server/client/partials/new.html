@@ -1,0 +1,9 @@
+<body ng-controller='newController'>
+	<div ng-repeat='friendItem in friends'><a href='/friends/{{friendItem._id}}'>{{friendItem.first}} {{friendItem.last}}</a></div>
+	<h1>Create</h1>
+	<form ng-submit='create()'>
+		<label>First Name: </label><input type="text" name="first" ng-model='friend.first'>
+		<label>Last Name: </label><input type="text" name="last" ng-model='friend.last'>
+		<input type="submit" value="Create">
+	</form>
+</body>

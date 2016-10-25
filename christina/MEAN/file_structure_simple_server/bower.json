@@ -1,0 +1,17 @@
+{
+  "name": "file_structure_simple_server",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Christina Ly <cly168@vt.edu>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/cly168/mean-charlie-workspace",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
